@@ -1,0 +1,237 @@
+// Fake data that matches types.ts. B-lanes build against it until the A-lanes' data layer is merged,
+// and the app falls back to it as demo data if the Canvas API fails.
+import { CANVAS_BASE_URL } from './config';
+import type { CanvasItem, Membership, Project, StudySession, User } from './types';
+
+const COURSES = {
+  dataStructures: 'COP 3530 Data Structures',
+  calc2: 'MAC 2312 Calculus II',
+  physics: 'PHY 2048 Physics I',
+  probStats: 'STA 3032 Probability & Statistics',
+  logicDesign: 'CDA 3201 Logic Design',
+} as const;
+
+const canvasUrl = (courseId: number, path: string) =>
+  `${CANVAS_BASE_URL}/courses/${courseId}/${path}`;
+
+export const mockCurrentUserId = 'u1';
+
+export const mockUsers: User[] = [
+  {
+    id: 'u1',
+    name: 'Alex Rivera',
+    email: 'arivera1234@floridapoly.edu',
+    major: 'Computer Science',
+    year: 2,
+    courses: [COURSES.dataStructures, COURSES.calc2, COURSES.physics],
+    bio: 'Night owl. Happy to explain recursion, need help with integrals.',
+  },
+  {
+    id: 'u2',
+    name: 'Priya Natarajan',
+    email: 'pnatarajan5678@floridapoly.edu',
+    major: 'Computer Engineering',
+    year: 2,
+    courses: [COURSES.dataStructures, COURSES.logicDesign, COURSES.calc2],
+    bio: 'Whiteboard person. Usually in the IST building after 4pm.',
+  },
+  {
+    id: 'u3',
+    name: 'Jordan Okafor',
+    email: 'jokafor2468@floridapoly.edu',
+    major: 'Mechanical Engineering',
+    year: 1,
+    courses: [COURSES.calc2, COURSES.physics],
+  },
+  {
+    id: 'u4',
+    name: 'Sam Chen',
+    email: 'schen1357@floridapoly.edu',
+    major: 'Data Science',
+    year: 3,
+    courses: [COURSES.probStats, COURSES.dataStructures],
+    bio: 'Looking for people to build side projects with Python and R.',
+  },
+  {
+    id: 'u5',
+    name: 'Maria Gonzalez',
+    email: 'mgonzalez9753@floridapoly.edu',
+    major: 'Electrical Engineering',
+    year: 3,
+    courses: [COURSES.logicDesign, COURSES.physics, COURSES.probStats],
+  },
+];
+
+export const mockCanvasItems: CanvasItem[] = [
+  {
+    id: '48211',
+    title: 'Project 3: Hash Map Implementation',
+    courseName: COURSES.dataStructures,
+    type: 'homework',
+    dueDate: '2026-11-24T04:59:00Z',
+    htmlUrl: canvasUrl(10231, 'assignments/48211'),
+  },
+  {
+    id: '48230',
+    title: 'Quiz 7: Trees and Heaps',
+    courseName: COURSES.dataStructures,
+    type: 'quiz',
+    dueDate: '2026-11-26T15:00:00Z',
+    htmlUrl: canvasUrl(10231, 'quizzes/48230'),
+  },
+  {
+    id: '51002',
+    title: 'WebAssign 11.4: Power Series',
+    courseName: COURSES.calc2,
+    type: 'homework',
+    dueDate: '2026-11-25T04:59:00Z',
+    htmlUrl: canvasUrl(10412, 'assignments/51002'),
+  },
+  {
+    id: '51040',
+    title: 'Exam 3: Sequences and Series',
+    courseName: COURSES.calc2,
+    type: 'exam',
+    dueDate: '2026-12-02T14:00:00Z',
+    htmlUrl: canvasUrl(10412, 'assignments/51040'),
+  },
+  {
+    id: '39877',
+    title: 'Lab Report 9: Rotational Dynamics',
+    courseName: COURSES.physics,
+    type: 'homework',
+    dueDate: '2026-11-30T04:59:00Z',
+    htmlUrl: canvasUrl(9980, 'assignments/39877'),
+  },
+  {
+    id: '39901',
+    title: 'Final Exam',
+    courseName: COURSES.physics,
+    type: 'exam',
+    dueDate: '2026-12-09T13:00:00Z',
+    htmlUrl: canvasUrl(9980, 'assignments/39901'),
+  },
+  {
+    id: '44510',
+    title: 'Quiz 9: Confidence Intervals',
+    courseName: COURSES.probStats,
+    type: 'quiz',
+    dueDate: '2026-11-27T04:59:00Z',
+    htmlUrl: canvasUrl(10077, 'quizzes/44510'),
+  },
+  {
+    id: '46120',
+    title: 'Homework 8: Finite State Machines',
+    courseName: COURSES.logicDesign,
+    type: 'homework',
+    dueDate: '2026-12-01T04:59:00Z',
+    htmlUrl: canvasUrl(10155, 'assignments/46120'),
+  },
+];
+
+export const mockStudySessions: StudySession[] = [
+  {
+    id: 's1',
+    hostId: 'u1',
+    title: 'Hash map project grind',
+    description: 'Working through collision handling and resizing. Bring your test cases.',
+    topic: { kind: 'canvas', canvasItemId: '48211' },
+    startTime: '2026-11-22T22:00:00Z',
+    endTime: '2026-11-23T00:00:00Z',
+    location: 'IST 1035',
+    isVirtual: false,
+    maxParticipants: 4,
+    createdAt: '2026-11-20T18:12:00Z',
+  },
+  {
+    id: 's2',
+    hostId: 'u3',
+    title: 'Calc II Exam 3 review',
+    description: 'Going through every practice problem on series convergence tests.',
+    topic: { kind: 'canvas', canvasItemId: '51040' },
+    startTime: '2026-11-29T19:00:00Z',
+    endTime: '2026-11-29T21:30:00Z',
+    location: 'Library, Room 2',
+    isVirtual: false,
+    maxParticipants: 6,
+    createdAt: '2026-11-21T02:40:00Z',
+  },
+  {
+    id: 's3',
+    hostId: 'u4',
+    title: 'Stats quiz cram (online)',
+    description: 'Quick review of confidence intervals over Teams before the quiz.',
+    topic: { kind: 'canvas', canvasItemId: '44510' },
+    startTime: '2026-11-26T23:00:00Z',
+    endTime: '2026-11-27T00:00:00Z',
+    location: 'https://teams.microsoft.com/l/meetup-join/example',
+    isVirtual: true,
+    maxParticipants: 10,
+    createdAt: '2026-11-21T14:05:00Z',
+  },
+  {
+    id: 's4',
+    hostId: 'u2',
+    title: 'LeetCode practice for internships',
+    description: 'Two mediums per session, then we compare solutions.',
+    topic: { kind: 'personal', label: 'Technical interview prep' },
+    startTime: '2026-11-23T21:00:00Z',
+    endTime: '2026-11-23T22:30:00Z',
+    location: 'IST Commons',
+    isVirtual: false,
+    maxParticipants: 5,
+    createdAt: '2026-11-19T16:30:00Z',
+  },
+];
+
+export const mockProjects: Project[] = [
+  {
+    id: 'p1',
+    ownerId: 'u4',
+    title: 'Campus parking predictor',
+    description: 'Predict open spots in each lot from time of day and class schedules.',
+    topic: { kind: 'personal', label: 'Machine learning side project' },
+    status: 'open',
+    skillsNeeded: ['Python', 'pandas', 'React Native'],
+    maxMembers: 4,
+    createdAt: '2026-11-15T20:00:00Z',
+  },
+  {
+    id: 'p2',
+    ownerId: 'u2',
+    title: 'FSM traffic light on an FPGA',
+    description: 'Going past the homework: build it on real hardware for the design showcase.',
+    topic: { kind: 'canvas', canvasItemId: '46120' },
+    status: 'in_progress',
+    skillsNeeded: ['Verilog', 'Logic design'],
+    maxMembers: 3,
+    createdAt: '2026-11-10T17:45:00Z',
+  },
+  {
+    id: 'p3',
+    ownerId: 'u1',
+    title: 'Physics lab data plotter',
+    description: 'A small tool that turns lab CSVs into graphs with error bars.',
+    topic: { kind: 'canvas', canvasItemId: '39877' },
+    status: 'open',
+    skillsNeeded: ['TypeScript', 'Charts'],
+    maxMembers: 3,
+    createdAt: '2026-11-18T23:10:00Z',
+  },
+];
+
+export const mockMemberships: Membership[] = [
+  { id: 'm1', userId: 'u1', targetType: 'session', targetId: 's1', role: 'host', status: 'accepted', joinedAt: '2026-11-20T18:12:00Z' },
+  { id: 'm2', userId: 'u2', targetType: 'session', targetId: 's1', role: 'member', status: 'accepted', joinedAt: '2026-11-20T19:01:00Z' },
+  { id: 'm3', userId: 'u4', targetType: 'session', targetId: 's1', role: 'member', status: 'pending', joinedAt: '2026-11-21T09:30:00Z' },
+  { id: 'm4', userId: 'u3', targetType: 'session', targetId: 's2', role: 'host', status: 'accepted', joinedAt: '2026-11-21T02:40:00Z' },
+  { id: 'm5', userId: 'u1', targetType: 'session', targetId: 's2', role: 'member', status: 'accepted', joinedAt: '2026-11-21T03:15:00Z' },
+  { id: 'm6', userId: 'u4', targetType: 'session', targetId: 's3', role: 'host', status: 'accepted', joinedAt: '2026-11-21T14:05:00Z' },
+  { id: 'm7', userId: 'u5', targetType: 'session', targetId: 's3', role: 'member', status: 'accepted', joinedAt: '2026-11-21T15:20:00Z' },
+  { id: 'm8', userId: 'u2', targetType: 'session', targetId: 's4', role: 'host', status: 'accepted', joinedAt: '2026-11-19T16:30:00Z' },
+  { id: 'm9', userId: 'u4', targetType: 'project', targetId: 'p1', role: 'host', status: 'accepted', joinedAt: '2026-11-15T20:00:00Z' },
+  { id: 'm10', userId: 'u1', targetType: 'project', targetId: 'p1', role: 'member', status: 'pending', joinedAt: '2026-11-19T12:00:00Z' },
+  { id: 'm11', userId: 'u2', targetType: 'project', targetId: 'p2', role: 'host', status: 'accepted', joinedAt: '2026-11-10T17:45:00Z' },
+  { id: 'm12', userId: 'u5', targetType: 'project', targetId: 'p2', role: 'member', status: 'accepted', joinedAt: '2026-11-11T10:00:00Z' },
+  { id: 'm13', userId: 'u1', targetType: 'project', targetId: 'p3', role: 'host', status: 'accepted', joinedAt: '2026-11-18T23:10:00Z' },
+];
